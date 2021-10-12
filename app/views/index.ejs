@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/s">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+        <form method="post" action="/index">
+            <div class="mb-3 center-block">
+                <p class="center-top">Input expression</p>
+                <input type="text" name="expression" class="form-control center-top" id="expression">
+            </div>
+        </br>
+            <button type="submit" class="btn btn-primary center-top">Submit</button>
+        </form>
+        <% if (result) { %>
+            <h2>Result <%= result %></h2>
+        <% } %>
+</body>
+</html>
