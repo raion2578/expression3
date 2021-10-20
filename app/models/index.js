@@ -15,10 +15,7 @@ fs
         return (file.indexOf(".") !== 0) && (file !== "index.js");
     })
     .forEach(function (file) {
-        //var model = sequelize['import'](path.join(__dirname, file));
         var model = sequelize.import(path.join(__dirname, file));
-        //var model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-        //const model = require(path.join(__dirname, file)).default(sequelize, Sequelize.DataTypes);
         db[model.name] = model;
     });
 
