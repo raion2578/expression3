@@ -23,13 +23,23 @@ function checkBrackets(str) {
 }
 
 
-function expressionCalculator(expr) {
-    console.log(expr);
+function expressionCalculator(expr, myOperator = null, myPriority = null, resultOperations = null) {
+
+    if ((myOperator && myPriority && resultOperations && resultOperations) == null) {
+        myOperator = null;
+        myPriority = null;
+        resultOperations = null;
+        resultOperations = null;
+    }
     if (!checkBrackets(expr)) {
-        return "Brackets Error";
+        return {'answer': 'Brackets Error'};
     }
     let exprArr = [];
     let mathSigns = ['+', '-', '*', '/', '(', ')'];
+
+    if (myOperator) {
+        mathSigns.push(String(myOperator));
+    }
 
     let num = '';
     for (let i = 0; i < expr.length; i++) {
@@ -65,15 +75,22 @@ function expressionCalculator(expr) {
         '+': 1,
         '-': 1,
         '*': 2,
-        '/': 2
+        '/': 2,
     };
-
+    if (myPriority) {
+        priority[myOperator] = Number(myPriority);
+    }
 
     function calc(a, b, op) {
         if (op == '+') result = a + b;
         if (op == '-') result = a - b;
         if (op == '*') result = (a * b);
         if (op == '/') result = a / b;
+        if (resultOperations) {
+            if (op == myOperator) {
+                result = eval(resultOperations); // Не безопасно от слово совсем и очень кастыльно
+            }
+        }
         if (result === Infinity) throw new Error("Division by zero.");
         return result;
     }
@@ -127,9 +144,9 @@ function expressionCalculator(expr) {
     let finalResult = numStack.pop();
 
     if (typeof finalResult === 'undefined' || isNaN(finalResult))
-        return "Error expression";
+        return {'answer': "Error expression"};
     else
-        return finalResult;
+        return {'answer': finalResult};
 
 }
 

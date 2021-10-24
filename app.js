@@ -3,24 +3,29 @@ var express = require('express'),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
-    models = require("./app/models");
+    models = require('./app/models'),
+    apiRouting = require('./app/routes/api-routes');
 
 
-app.use(bodyParser.urlencoded({
-    extended: true
+app.use(express.urlencoded({
+    extended: false
 }));
-app.use(bodyParser.json());
+app.use(apiRouting);
+
 app.use(session({
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
 }));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session()); 
+
 
 var authRoute = require('./app/routes/auth.js')(app);
 
+
 require('./app/config/passport/passport.js')(passport, models.user);
+
 
 models.sequelize.sync().then(function () {
 
@@ -31,10 +36,11 @@ models.sequelize.sync().then(function () {
     console.log(err, "Something went wrong with the Database Update!")
 
 });
+app.use(session({secret: 'keyboard cat', resave: true, saveUninitialized: true}));
 
-app.use(session({secret: 'keyboard cat', resave: true, saveUninitialized: true})); // session secret
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+
+app.use(passport.session());
 
 app.set('views', './app/views')
 app.set('view engine', 'ejs')
@@ -44,7 +50,7 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
 
-    res.send('Go to /login');
+    res.send('Welcome to Passport with Sequelize');
 
 });
 

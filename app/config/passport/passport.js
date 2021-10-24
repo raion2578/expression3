@@ -28,7 +28,7 @@ module.exports = function (passport, user) {
 
             passwordField: 'password',
 
-            passReqToCallback: true 
+            passReqToCallback: true
 
         },
 

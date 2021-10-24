@@ -1,5 +1,5 @@
 var exports = module.exports = {},
-    expression = require('../scripts/expression')
+    expression = require('../scripts/expression');
 
 exports.signin = function (req, res) {
 
