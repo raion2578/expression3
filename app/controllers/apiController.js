@@ -1,15 +1,28 @@
-const expression = require('../scripts/expression'),
+const
     jwt = require('jsonwebtoken'),
     md5 = require('md5');
-var User = require('../models');
+var User = require('../models'),
+    expr = require('../models/expression'),
+    expression = new expr();
 
-const expPost =  (req, res) => {
-    const {expressionParam, myOperator, myPriority, resultOperations} = req.body;
-    const exp = expression.expressionCalculator(expressionParam, myOperator, myPriority, resultOperations);
-    res.status(200).json(exp);
+const expPostNew =  (req, res) => {
+    const {expressionParam} = req.body;
+    expression.setExpr(expressionParam);
+    res.status(200).json(expression.calculate());
 }
 
+const addOperation =  (req, res) => {
+    const {operationSign, operationPriority, operationEval} = req.body;
+    expression.addSign(operationSign);            //
+    expression.addEvalOperations(operationSign, operationEval);  //
+    expression.addPrioritys(operationSign, operationPriority);   //
+    expression.printAll();
+    res.json({'answer':'ok'});
+}
+
+
 const loginApi = (req, res) => {
+    try {
         const {username, password} = req.body
         const user = User.user.findOne({
             where: {
@@ -34,7 +47,6 @@ const loginApi = (req, res) => {
             }
 
             const token = jwt.sign({user}, 'mySecret', {expiresIn: "24h"});
-			user.token = token;
             return res.json(token);
 
         }).catch(function (err) {
@@ -46,8 +58,13 @@ const loginApi = (req, res) => {
             });
 
         });
+    } catch (e) {
+        console.log(e)
+        res.status(400).json({message: 'Login error'})
+    }
 }
 module.exports = {
-    expPost,
     loginApi,
+    expPostNew,
+    addOperation,
 };

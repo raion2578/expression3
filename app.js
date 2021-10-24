@@ -17,11 +17,14 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(passport.initialize());
-app.use(passport.session()); 
+app.use(passport.session()); // persistent login sessions
+
 
 var authRoute = require('./app/routes/auth.js')(app);
 
+
 require('./app/config/passport/passport.js')(passport, models.user);
+
 
 models.sequelize.sync().then(function () {
 
@@ -32,11 +35,11 @@ models.sequelize.sync().then(function () {
     console.log(err, "Something went wrong with the Database Update!")
 
 });
-app.use(session({secret: 'keyboard cat', resave: true, saveUninitialized: true}));
+app.use(session({secret: 'keyboard cat', resave: true, saveUninitialized: true})); // session secret
 
 app.use(passport.initialize());
 
-app.use(passport.session());
+app.use(passport.session()); // persistent login sessions
 
 app.set('views', './app/views')
 app.set('view engine', 'ejs')

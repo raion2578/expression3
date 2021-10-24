@@ -8,8 +8,6 @@ const verifyToken = (req, res, next) => {
         return res.status(403).send("A token is required for authentication");
     }
     try {
-		// Ещё можно использовать какой-нибудь argon2 или что-то в этом роде, чтобы 
-		// хоть как-то защитить это всё
         const decoded = jwt.verify(token, 'mySecret');
         req.user = decoded;
     } catch (err) {

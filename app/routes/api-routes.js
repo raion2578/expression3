@@ -1,12 +1,17 @@
 const express = require('express'),
-      auth = require('../scripts/auth');
+       auth = require('../scripts/auth');
 const {
-    expPost,
     loginApi,
+    expPostNew,
+    addOperation,
 } = require('../controllers/apiController');
+
 const router = express.Router();
 
-router.post('/api/post-expression', auth, expPost);
 router.post('/api/login', loginApi)
+
+router.post('/api/post-expr', auth, expPostNew);
+
+router.post('/api/add-sign', auth, addOperation);
 
 module.exports = router;
