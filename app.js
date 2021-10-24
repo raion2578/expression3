@@ -6,7 +6,6 @@ var express = require('express'),
     models = require('./app/models'),
     apiRouting = require('./app/routes/api-routes');
 
-
 app.use(express.urlencoded({
     extended: false
 }));
@@ -20,12 +19,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); 
 
-
 var authRoute = require('./app/routes/auth.js')(app);
 
-
 require('./app/config/passport/passport.js')(passport, models.user);
-
 
 models.sequelize.sync().then(function () {
 
