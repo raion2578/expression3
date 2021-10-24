@@ -7,4 +7,6 @@ myOperator =  Символ оператора <br />
 myPriority = Приоритет операции <br />
 resultOperations = Как интерпретировать операцию относительно 2 переменных a и b 
 
-![alt text](picture/addOperation.jpg "Описание будет тут")
+### Пример добавления операции
+В заголовке передаём токен
+![alt text](picture/addOperation.jpg "Добовление операции")
