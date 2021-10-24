@@ -1,5 +1,5 @@
 const express = require('express'),
-      auth = require('../middleware/auth');
+      auth = require('../scripts/auth');
 const {
     expPost,
     loginApi,
