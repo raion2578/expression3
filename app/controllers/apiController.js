@@ -9,10 +9,7 @@ const expPost =  (req, res) => {
     res.status(200).json(exp);
 }
 
-
-
 const loginApi = (req, res) => {
-    try {
         const {username, password} = req.body
         const user = User.user.findOne({
             where: {
@@ -49,10 +46,6 @@ const loginApi = (req, res) => {
             });
 
         });
-    } catch (e) {
-        console.log(e)
-        res.status(400).json({message: 'Login error'})
-    }
 }
 module.exports = {
     expPost,

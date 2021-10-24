@@ -29,7 +29,6 @@ function expressionCalculator(expr, myOperator = null, myPriority = null, result
         myOperator = null;
         myPriority = null;
         resultOperations = null;
-        resultOperations = null;
     }
     if (!checkBrackets(expr)) {
         return {'answer': 'Brackets Error'};
